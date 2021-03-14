@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Welcome Admin</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="#">
+    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="#">
+    <!-- Favicon icon -->
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/bootstrap.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/icofont.css">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/feather.css">
+    <!-- Syntax highlighter Prism css -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/prism.css">    
+    <!-- animation nifty modal window effects css -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/component.css">
+
+    <!-- Data Table Css -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/buttons.dataTables.min.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="~/Adminty/css/Common.css" />
+
+    <!-- Style.css -->
+    <!-- Style.css -->
+    <script src="~/js/jquery-3.3.1.js"></script>
+
+    <script src="~/js/jquery-ui-1.10.2.js"></script>
+    <link href="~/css/jquery-ui.css" rel="stylesheet" />
+    <script src="~/js/ajax-modules.js"></script>
+    <script src="~/js/auto-complete.js"></script>
+    <script src="~/js/sweetalert.min.js"></script>
+
+   
+    <!-- For Create Confirm -->
+    @if (Session["Create"] != null)
+    {
+        if (Session["Create"].ToString() == "Yes")
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal({
+                        title: "Record Add!",
+                        text: "New record add successfully!",
+                        icon: "success",
+                        button: "OK",
+                    });
+                };
+            </script>
+            Session["Create"] = "No";
+        }
+    }
+    <!-- For Edit Confirm -->
+    @if (Session["Edit"] != null)
+    {
+        if (Session["Edit"].ToString() == "Yes")
+        {
+            <script type="text/javascript">
+                window.onload = function () {
+                    swal({
+                        title: "Record Update!",
+                        text: "Record update successfully!",
+                        icon: "success",
+                        button: "OK",
+                    });
+                };
+            </script>
+            Session["Edit"] = "No";
+        }
+    }
+    <!-- For Delete Confirm -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btn_submit").click(function (e) {
+                e.preventDefault(); //prevent submit
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this record!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $('#confirm').val("Yes");
+                        swal("Poof! Your record has been deleted!", { icon: "success", });
+                        $('.swa-confirm').submit();
+                    } else {
+                        $('#confirm').val("No");
+                        swal("Your record is safe!");
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
+
+</head>
+<!-- Menu sidebar layout -->
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+                <div class="ring"><div class="frame"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Menu header start -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <!-- Top Menu -->
+            @Html.Partial("~/Views/Menu/AdminTopMenu.cshtml")
+            <div class="pcoded-main-container mybg">
+                <div class="pcoded-wrapper ">
+                    @RenderPage("~/Views/Menu/AdminLeftMenu.cshtml")
+                    <div class="pcoded-content ">
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper ">
+                                    <div class="page-body">
+                                        @RenderBody()
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Adminty/custome-js/jquery-3.3.1.min.js"></script>
+    <script src="~/Adminty/custome-js/jquery-ui-1.10.2.min.js"></script>
+    <script src="~/Adminty/custome-js/ajax-modules.js"></script>
+    <script src="~/Adminty/custome-js/auto-complete.js"></script>
+    <script src="~/Adminty/custome-js/sweetalert.min.js"></script>
+
+    <!-- Warning Section Ends -->
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="~/Adminty/js/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/jquery-ui.min.js"></script>
+
+
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="~/Adminty/js/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="~/Adminty/js/modernizr.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/css-scrollbars.js"></script>
+    <!-- Syntax highlighter prism js -->
+    <script type="text/javascript" src="~/Adminty/js/custom-prism.js"></script>
+    <!-- Custom js -->
+    <script type="text/javascript" src="~/Adminty/js/pcoded.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/menu-sidebar-fixed.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/script.js"></script>
+
+    <!-- modalEffects js nifty modal window effects -->
+    <script type="text/javascript" src="~/Adminty/js/modalEffects.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/classie.js"></script>
+
+    <!-- data-table js -->
+
+
+
+    <script type="text/javascript" src="~/Adminty/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/dataTables.buttons.min.js"></script>
+
+    <script type="text/javascript" src="~/Adminty/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/pdfmake.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/vfs_fonts.js"></script>
+
+    <script type="text/javascript" src="~/Adminty/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/buttons.flash.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/jszip.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/vfs_fonts.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/buttons.colVis.min.js"></script>
+
+    <script type="text/javascript" src="~/Adminty/js/buttons.print.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/buttons.html5.min.js"></script>
+
+    <script type="text/javascript" src="~/Adminty/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" src="~/Adminty/js/responsive.bootstrap4.min.js"></script>
+
+    <script type="text/javascript" src="~/Adminty/js/extension-btns-custom.js"></script>
+
+</body>
+
+</html>

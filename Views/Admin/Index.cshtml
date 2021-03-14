@@ -1,0 +1,116 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Women World</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/login-style.css" rel="stylesheet" />
+    <link href="~/Adminty/css/icofont.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>   
+    <script src="~/Adminty/custome-js/ajax-modules.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            SetInputNumeric('Mobile');
+        });
+    </script>
+    <script type="text/javascript">
+        function refreshCaptcha() {
+            $.ajax({
+                type: "POST",
+                url: "/Login/RefereceCaptcha",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: OnSuccess1,
+                failure: function (data) {
+                    alert(data.d);
+                }
+            });
+        }
+        function OnSuccess1(data) {
+            d = new Date();
+            $('#captcha').attr("src", "/UploadFiles/captcha.jpg?" + d.getTime());
+        }
+    </script>
+</head>
+<body class="bg-color">
+    <div class="container"> 
+        <div class="row whitebox">
+                <div class="col-sm-6 m-0 loginside">
+                    <div class="loginheader d-flex align-items-center justify-content-center">                       
+                        <img src="~/UploadFiles/Common/Women_World_Logo.png" class="img-fluid" style="height:90px" />
+                    </div>
+                    <div class="loginbody">
+                        @using (Html.BeginForm("Index", "Admin", FormMethod.Post, new { id = "cloginpasswordform", name = "cloginpasswordform" }))
+                        {
+
+                              <div class="row mb-3">
+                                  <div class="col-sm-12">
+                                     
+                                      <h4 class="text-uppercase float-end"> <i class="icofont icofont-user-alt-3" style="color:#106761"></i> Admin Login</h4>
+                                  </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    @Html.TextBox("Mobile", null, new { required = "Please enter mobile number", placeholder = "User Name / Mobile", @class = "form-control border-success rounded-0", maxlength = "10" })
+                                    @Html.ValidationMessage("Mobile")
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    @Html.TextBox("Password", null, new { required = "Please enter otp code", placeholder = "Password", @class = "form-control border-success rounded-0", type = "password" })                                   
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-4 col-4">
+                                    <img id="captcha" src="~/UploadFiles/captcha.jpg?" + new Date().getTime(); />
+                                </div>
+                                <div class="col-sm-6 col-6">
+                                    @Html.TextBox("CaptchaCode", null, new { required = "Please enter captcha code", placeholder = "Captcha Code", @class = "form-control border-success rounded-0", maxlength = "6" })                                   
+                                </div>
+                                <div class="col-sm-2  col-2">
+                                    <button id="refCpatcha" type="button" onclick="refreshCaptcha();" class="btn btn-outline-info rounded-0 float-end"><i class="icofont icofont-refresh"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-sm-12">
+                                    <input type="submit" value="Login" class="btn btn-outline-success rounded-0 float-end" />
+                                </div>
+                            </div>
+
+                            <div class="row mt-5">
+                                <div class="col-sm-12">
+                                    <label for="pwd"><a href="@Url.Action("ForgetPassword", "Admin")">Forget Password</a></label>
+                                    <label for="pwd" class="float-end"><a href="@Url.Action("LoginOTP", "Admin")">Login OTP</a></label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-6 picside">
+                   <div class="side-pic">
+
+                   </div>
+                    <div class="picsidefooter d-flex align-items-center justify-content-center">
+                        <h5>Welcome to you Women World</h5>
+                    </div>
+                </div>
+                
+            </div>
+        <div class="row mt-3">
+            <div class="col-sm-12 text-center">
+                <h5><a class="sitelink" href="https://www.womensworldonline.com/">https://www.womensworldonline.com/</a></h5>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
