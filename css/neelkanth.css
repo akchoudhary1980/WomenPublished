@@ -4,6 +4,8 @@
     --orange: #FC7C0E;
     --blue: #2BBCFB;
     --green: #BCD000;
+    --darkorange: #EF7F1A;
+    --magenta: #CD118A;
 }
 
 
@@ -177,11 +179,17 @@
     .green-underline h4 {
         border-bottom: 4px solid #BCD000;
         display: inline-block;
+        padding-bottom:5px;
     }
+
+        .green-underline h4:hover {
+            border-bottom: 4px solid #CD118A;
+        }
 
     .green-underline h5 {
         border-bottom: 4px solid #BCD000;
         display: inline-block;
+        padding-bottom: 5px;
     }
 
 
@@ -199,7 +207,7 @@
     }
 
 .more-product {
-    background-color: #2BBCFB;
+    background-color: #CD118A;
     padding: 10px;
     color: white;
     border: none;
@@ -266,7 +274,7 @@
 
 #topbar {
     /*background-color:  #FC7C0E;*/
-    background-color: var(--orange);
+    background-color: var(--darkorange);
     height: 35px;
     line-height: 35px;
     vertical-align: middle;
@@ -287,8 +295,8 @@
 .search-box {
     width: 95% !important;
     border-style: none;
-    border: solid 1px #2BBCFB;
-    padding: 9px 10px 9px 10px;   
+    border: solid 1px #CD118A;
+    padding: 9px 10px 9px 10px;
     float: right;
     transition: width 0.5s;
 }
@@ -299,9 +307,9 @@
 
 .search-button {
     background-color: white;
-    color: #BCD000;
+    color: #CD118A;
     border-style: none;
-    border: solid 1px #2BBCFB;
+    border: solid 1px #CD118A;
     padding: 5px 10px 5px 10px;
     margin-left: -1px;
     transition: all 0.5s;
@@ -315,7 +323,7 @@
     font-size: xx-large;
     font-weight: 900;
     text-align: right;
-    color: #FC7C0E;    
+    color: #CD118A;
 }
 .login-text {
     color: #B8B5B5;
@@ -333,12 +341,12 @@
 }
 
 #menubar {
-    background-color: #2BBCFB;
+    background-color: #CD118A;
 }
 
 /* menu */
 .mainnav {
-    background-color: #2BBCFB;
+    background-color: #CD118A;
 }
 
 .mainnav > ul {
@@ -375,7 +383,7 @@
         .mainnav > ul > li > a:hover {
             /*color: black;*/
             background-color: #BCD000;
-            border-radius:10px;
+            /*border-radius:10px;*/
             /*border-bottom: 5px solid #BCD000;*/
         }
 #sliderbar {
