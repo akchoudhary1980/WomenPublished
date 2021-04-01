@@ -1,0 +1,99 @@
+﻿@model IEnumerable< Wom.Models.SubCategoryModel >
+@{
+    Wom.Models.dbContext db = new Wom.Models.dbContext();
+    Layout = "~/Views/Shared/_Admin.cshtml";
+    int count = 0;
+
+}
+<div class="page-header animated bounceInRight">
+    <div class="card">
+        <div class="card-block ">
+            <div class="row ">
+                <div class="col-lg-4">
+                    <h5 class="text-uppercase font-weight-bold">@ViewData["PageTitle"]</h5>
+                </div>
+                <div class="col-lg-8 align-items-end">
+                    <div class="page-header-breadcrumb">
+                        <ul class="breadcrumb-title">
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Home")"> <i class="icofont icofont-home"></i> Home </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "Masters")"> Masters </a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="@Url.Action("Index", "SubCategory")"> @ViewData["PageTitle"] </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated bounceInUp">
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>@ViewData["PageTitle"]</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="@Url.Action("Create", "SubCategory")" class="btn btn-primary btn-outline-primary float-right"><i class="icofont icofont-ui-add"></i> Add</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-block">
+                <div class='dt-responsive table-responsive'>
+                    <table id='cbtn-selectors' class='table table-striped table-bordered nowrap'>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Picture</th>
+                                <th>Sub Category</th>
+                                <th>Main Category</th>
+                                <th>Remark</th>
+                                <th>Edit</th>
+                                <th>Del</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@{count++;} @count</td>
+
+                                @if (item.Picture == "")
+                                {
+                                    <td><img src="~/UploadFiles/product.png" alt="" height="50" /></td>
+                                }
+                                else
+                                {
+                                    <td><img src="~/UploadFiles/@item.Picture" alt="" height="50" /></td>
+                                }
+                                <td>@item.CategoryName</td>
+                                <td>
+                                    @{
+                                        var cat = db.MainCategoryModels.Where(x => x.MainCategoryID ==  item.MainCategoryID).SingleOrDefault();
+                                    }
+
+                                    @cat.CategoryName
+
+                                </td>
+
+                                <td>@item.Remark</td>
+                                <td><a asp-action="Edit" asp-route-id="@item.SubCategoryID" class="btn btn-success btn-mini btn-outline-primary"><i class="icofont icofont-ui-edit"></i></a></td>
+                                <td><a asp-action="Delete" asp-route-id="@item.SubCategoryID" class="btn btn-danger btn-mini btn-outline-primary"><i class="icofont icofont-ui-close"></i></a></td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
