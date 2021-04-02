@@ -1,4 +1,9 @@
-﻿
+﻿@{    
+    Wom.Models.dbContext db = new Wom.Models.dbContext();
+    var maincategory = db.MainCategoryModels.Where(x => x.IsDisplayOnMenu == true).ToList();
+    string act = "active";
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +30,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-    
+
     <link href="~/css/side-navbar.css" rel="stylesheet" />
     <link href="~/css/womenworld.css" rel="stylesheet" />
     <link href="~/css/icofont.min.css" rel="stylesheet" />
@@ -76,37 +81,42 @@
             </div>
 
             <div class="sidebar-header">
-                <h5>Category</h5>
+                <h5><i class="icofont-ui-clip-board"></i> Category</h5>
             </div>
 
-            <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
-                <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false">Home</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
+            <ul class="list-unstyled components">              
+                @foreach (var mc in maincategory)
+                {
+                <li class="@act">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
+                    @*<ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="#">Home 1</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Home 1</a>
                         </li>
                         <li>
-                            <a href="#">Home 2</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Home 2</a>
                         </li>
                         <li>
-                            <a href="#">Home 3</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Home 3</a>
                         </li>
-                    </ul>
+                    </ul>*@
                 </li>
+
+                    act = "";
+                }
+
                 <li>
-                    <a href="#">About</a>
+                    <a href="#"><i class="icofont-square-right"></i> About</a>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="#">Page 1</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Page 1</a>
                         </li>
                         <li>
-                            <a href="#">Page 2</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Page 2</a>
                         </li>
                         <li>
-                            <a href="#">Page 3</a>
+                            <a href="#"><i class="icofont-simple-right"></i> Page 3</a>
                         </li>
                     </ul>
                 </li>
@@ -118,14 +128,14 @@
                 </li>
             </ul>
 
-            <ul class="list-unstyled CTAs">
-                <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
-                </li>
-                <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-                </li>
-            </ul>
+            @*<ul class="list-unstyled CTAs">
+                    <li>
+                        <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                    </li>
+                    <li>
+                        <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                    </li>
+                </ul>*@
         </nav>
         <!-- Page Content  -->
         <div id="content">
@@ -171,13 +181,9 @@
                 <div class="container">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
-
                             <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:orangered; color:white;width:100px;border-radius:0px;">
-                                
                                 <span><i class="fas fa-align-left"></i> Menu</span>
                             </button>
-
-                            @*<a class="navbar-brand" href="#">Navbar</a>*@
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -189,27 +195,16 @@
                                     <li><a href="#">BEAUTY</a></li>
                                     <li><a href="#">ABOUT US</a></li>
                                     <li><a href="#">CONTACT US</a></li>
-                                    @*<li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Dropdown
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>*@
                                 </ul>
-
                             </div>
                         </div>
                     </nav>
                 </div>
             </section>
+            <!-- Top Icons -->
             <section class="mt-2">
                 <div class="container">
-                    <div class="row">
+                    <div class="row text-uppercase">
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
                             <p>kurtas</p>
@@ -220,11 +215,28 @@
                         </div>
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
+                            <p>tops</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
+                            <p>dresses</p>
+                        </div>
+
+                        <div class="col-md-1 col-3 text-center">
+                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <p>sarees</p>
+                        </div>
+                        <div class="col-md-1 col-3 text-center">
+                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <p>Suits</p>
+                        </div>
+                        <div class="col-md-1 col-3 text-center">
+                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <p>ethnic sets</p>
+                        </div>
+                        <div class="col-md-1 col-3 text-center">
+                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <p>bottoms</p>
                         </div>
 
                         <div class="col-md-1 col-3 text-center">
@@ -233,32 +245,15 @@
                         </div>
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
+                            <p>bags</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
+                            <p>footwear</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
                             <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
-                        </div>
-
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
+                            <p>footwear</p>
                         </div>
 
                     </div>
@@ -407,13 +402,10 @@
 
 
 
-    
-    
+
+
 
     <!-- Render Body End -->
-   
-    
-
     <!-- For Sticky Social Icon -->
     <div class="sticky-icon-bar">
         <a href="https://api.whatsapp.com/send?phone=917401307307&text=Start%20Whatsapp%20Chating" target="_blank" class="whatsup-bg"><i class="icofont-whatsapp"></i></a>

@@ -1,20 +1,12 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     Wom.Models.dbContext db = new Wom.Models.dbContext();
-
     var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
     var category = db.CategoryModels.Take(6).ToList();
     var testimonial = db.TestimonialModels.ToList();
 }
-
 @model System.Data.DataTable
 @using System.Data;
-
-<!-- Latest compiled and minified CSS -->
-@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link href="~/css/product-slider.css" rel="stylesheet" />*@
 <link href="~/css/product-slider.css" rel="stylesheet" />
 <!--for Search Category Wise-->
 <script type="text/javascript">
@@ -31,11 +23,8 @@
             });
         }
 </script>
-<!-- Slider Section -->
-<!-- Side Menu Category Section -->
-
+<!-- Category Section -->
 <section>
-
     <div class="container my-4" style="padding-bottom:40px;">
         <div class="row mt-2">
             <div class="col-md-12 text-center green-underline">
@@ -268,12 +257,8 @@
             </div>
 
         </section>
-
     </div>
-
 </section>
-
-<!-- Top Product -->
 <!-- Top Product Section -->
 <section>
     <div class="container mt-4 mb-5">
@@ -288,10 +273,10 @@
                 @*@foreach (var item in usefullproduct)
                     {*@
                 <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="card prod-view rounded-0" style="min-height:425px">
+                    <div class="card prod-view rounded-0" style="min-height:400px">
                         <div class="prod-item text-center">
                             <div class="prod-img">
-                                <div class="option-hover" style="top:10px;">
+                                <div class="option-hover">
                                     <button type="button" onclick="addShopItems(@row["ProductID"];" class="btn btn-success rounded-0">
                                         <i class="icofont icofont-cart-alt f-20"></i>
                                     </button>
@@ -348,7 +333,6 @@
         </div>
     </div>
 </section>
-
 <!-- New Product Section -->
 <section>
     <div class="container mt-4 mb-5">
@@ -423,8 +407,7 @@
         </div>
     </div>
 </section>
-
-<!-- Item slider end-->
+<!-- Script for Item slider end-->
 <script type="text/javascript">
     $('.carousel.carousel-multi-item.v-2 .carousel-item').each(function () {
         var next = $(this).next();
