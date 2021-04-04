@@ -11,59 +11,104 @@
                         <h3>@ViewData["PageTitle"]</h3>
                     </div>
                     <div class="col-md-3">
-                        <a asp-action="Index" class="btn btn-primary btn-outline-primary float-right"><i class="icofont icofont-ui-reply"></i> Back</a>
+                        <a href="@Url.Action("Index", "MainCategory")" class="btn btn-primary btn-outline-primary float-right"><i class="icofont icofont-ui-reply"></i> Back</a>
                     </div>
                 </div>
             </div>
             <div class="card-block">
                 <h4 class="sub-title">Delete This Records</h4>
 
-                <form class="swa-confirm" asp-action="Delete">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="MainCategoryID" />
-                    <input type="hidden" id="confirm" name="confirm" value="No" />
+                @using (Html.BeginForm("Delete", "MainCategory", FormMethod.Post, FormMethod.Post, new { enctype = "multipart/form-data"}))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.MainCategoryID)
 
                     <div class="form-group row">
-                        <label asp-for="CategoryName" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-6">
-                            <input asp-for="CategoryName" class="form-control" placeholder="eg Category Name" />
-                            <span asp-validation-for="CategoryName" class="text-danger"></span>
+                        @Html.LabelFor(model => model.CategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "text-danger" })
                         </div>
-                        <label asp-for="IsDisplayOnMenu" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-2">
-                            <div class="border-checkbox-section">
-                                <div class="border-checkbox-group border-checkbox-group-primary">
-                                    <input asp-for="IsDisplayOnMenu" class="border-checkbox" type="checkbox" id="checkbox1">
-                                    <label class="border-checkbox-label" for="checkbox1">Yes</label>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.IsDisplayOnMenu, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(model => model.IsDisplayOnMenu, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.IsDisplayOnMenu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            <p>Product Picture 1000px X 1000px</p>
+                            <img id="picture" src="~/UploadFiles/@Url.Content(Model.Picture)" alt="" class="img-fluid img-thumbnail" />
+                        </div>
+                        <div class="col-md-4">
+                            <input type='file' name="FileUpload" onchange="uploadPicture(this);" class="btn btn-success pull-right" />
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label asp-for="Remark" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-10">
-                            <textarea asp-for="Remark" rows="3" cols="5" class="form-control"></textarea>
-                            <span asp-validation-for="Remark" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label asp-for="Picture" class="col-sm-2 col-form-label"></label>
-                        <div class="col-sm-4">
-                            <p>Product Picture 300px X 300px</p>
-                            <img id="productPicture" src="~/UploadFiles/@Url.Content(Model.Picture)" alt="" class="img-fluid img-thumbnail" />
-                        </div>
-                        <div class="col-sm-4">
-                            <input type='file' name="postedFile" onchange="uploadPicture(this);" class="btn btn-success btn-disabled pull-right" />
-                        </div>
-                    </div>
                     <div class="form-group row">
                         <div class="col-sm-12">
-                            <input type="submit" id="btn_submit" value="Delete" class="btn btn-primary btn-out waves-effect md-trigger float-right" />
+                            <input type="submit" value="Delete" class="btn btn-danger btn-out float-right" />
                         </div>
                     </div>
+                }
 
-                </form>
+                @*<form class="swa-confirm" asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MainCategoryID" />
+            <input type="hidden" id="confirm" name="confirm" value="No" />
+
+            <div class="form-group row">
+                <label asp-for="CategoryName" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-6">
+                    <input asp-for="CategoryName" class="form-control" placeholder="eg Category Name" />
+                    <span asp-validation-for="CategoryName" class="text-danger"></span>
+                </div>
+                <label asp-for="IsDisplayOnMenu" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-2">
+                    <div class="border-checkbox-section">
+                        <div class="border-checkbox-group border-checkbox-group-primary">
+                            <input asp-for="IsDisplayOnMenu" class="border-checkbox" type="checkbox" id="checkbox1">
+                            <label class="border-checkbox-label" for="checkbox1">Yes</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Remark" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <textarea asp-for="Remark" rows="3" cols="5" class="form-control"></textarea>
+                    <span asp-validation-for="Remark" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Picture" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-4">
+                    <p>Product Picture 300px X 300px</p>
+                    <img id="productPicture" src="~/UploadFiles/@Url.Content(Model.Picture)" alt="" class="img-fluid img-thumbnail" />
+                </div>
+                <div class="col-sm-4">
+                    <input type='file' name="postedFile" onchange="uploadPicture(this);" class="btn btn-success btn-disabled pull-right" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <input type="submit" id="btn_submit" value="Delete" class="btn btn-primary btn-out waves-effect md-trigger float-right" />
+                </div>
+            </div>
+
+        </form>*@
             </div>
         </div>
         <!-- Default card end -->

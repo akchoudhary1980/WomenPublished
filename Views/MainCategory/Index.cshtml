@@ -72,10 +72,19 @@
                                     <td><img src="~/UploadFiles/@item.Picture" alt="" height="50" /></td>
                                 }
                                 <td>@item.CategoryName</td>
-                                <td>@if (item.IsDisplayOnMenu == true) {@Html.Raw("Yes")} else {@Html.Raw("No")}</td>
+                                <td>@if (item.IsDisplayOnMenu == true)
+                                {@Html.Raw("Yes")}
+                            else
+                            {@Html.Raw("No")}</td>
                                 <td>@item.Remark</td>
-                                <td><a asp-action="Edit" asp-route-id="@item.MainCategoryID" class="btn btn-success btn-mini btn-outline-primary"><i class="icofont icofont-ui-edit"></i></a></td>
-                                <td><a asp-action="Delete" asp-route-id="@item.MainCategoryID" class="btn btn-danger btn-mini btn-outline-primary"><i class="icofont icofont-ui-close"></i></a></td>
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "MainCategory",new { id = item.MainCategoryID })" class="btn btn-success btn-mini btn-outline-primary"><i class='icofont icofont-ui-edit'></i></a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Delete", "MainCategory",new { id = item.MainCategoryID })" class="btn btn-danger btn-mini btn-outline-primary"><i class='icofont icofont-ui-close '></i></a>
+                                </td> 
+                                
                             </tr>
                             }
                         </tbody>

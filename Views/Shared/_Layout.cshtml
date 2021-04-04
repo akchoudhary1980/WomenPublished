@@ -1,6 +1,6 @@
 ﻿@{    
     Wom.Models.dbContext db = new Wom.Models.dbContext();
-    var maincategory = db.MainCategoryModels.Where(x => x.IsDisplayOnMenu == true).ToList();
+    var maincategory = db.MainCategoryModels.Where(x => x.IsDisplayOnMenu == true).OrderBy(x=>x.CategoryName).ToList();
     string act = "active";
 }
 
@@ -79,63 +79,32 @@
             <div id="dismiss">
                 <i class="fas fa-arrow-left"></i>
             </div>
-
             <div class="sidebar-header">
                 <h5><i class="icofont-ui-clip-board"></i> Category</h5>
             </div>
-
             <ul class="list-unstyled components">              
                 @foreach (var mc in maincategory)
                 {
                 <li class="@act">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
-                    @*<ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Home 1</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Home 2</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Home 3</a>
-                        </li>
-                    </ul>*@
+                    <a href="#@mc.CategoryName" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
+                    
+                    <ul class="collapse list-unstyled" id="@mc.CategoryName">
+                        @{
+                            var subcategory = db.SubCategoryModels.Where(s => s.MainCategoryID == mc.MainCategoryID).OrderBy(x => x.CategoryName).ToList();
+                        }
+                        @foreach (var sc in subcategory)
+                        {
+                            <li>
+                                <a href="#"><i class="icofont-simple-right"></i> @sc.CategoryName</a>
+                            </li>
+                        }                           
+                    </ul>
+
                 </li>
 
                     act = "";
-                }
-
-                <li>
-                    <a href="#"><i class="icofont-square-right"></i> About</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icofont-simple-right"></i> Page 3</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
-                </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
-            </ul>
-
-            @*<ul class="list-unstyled CTAs">
-                    <li>
-                        <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
-                    </li>
-                    <li>
-                        <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-                    </li>
-                </ul>*@
+                }               
+            </ul>           
         </nav>
         <!-- Page Content  -->
         <div id="content">
@@ -146,8 +115,7 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-md-4 mb-2 logo-area">
-                            <img src="~/UploadFiles/Common/Women_World_Logo.png" />
-                            @*<p class="slow-gun">A whole new world, <br />A whole new look</p>*@
+                            <img src="~/UploadFiles/Common/Women_World_Logo.png" />                         
                         </div>
                         <div class="col-md-5 pt-5">
                             <div class="row">
@@ -181,7 +149,7 @@
                 <div class="container">
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <div class="container-fluid">
-                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:orangered; color:white;width:100px;border-radius:0px;">
+                            <button type="button" id="sidebarCollapse" class="btn btn-info" style="background-color:#BCD000; color:white;width:100px;border-radius:0px;">
                                 <span><i class="fas fa-align-left"></i> Menu</span>
                             </button>
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -202,58 +170,59 @@
                 </div>
             </section>
             <!-- Top Icons -->
-            <section class="mt-2">
+            <section class="mt-3 icons-bar">
                 <div class="container">
                     <div class="row text-uppercase">
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Kurta.jpg" class="img-fluid rounded-circle" />
                             <p>kurtas</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Tops.jpg" class="img-fluid rounded-circle" />
                             <p>tops</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Dress.jpg" class="img-fluid rounded-circle" />
                             <p>dresses</p>
                         </div>
 
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Saree.jpg" class="img-fluid rounded-circle" />
                             <p>sarees</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/suit.jpg" class="img-fluid rounded-circle" />
                             <p>Suits</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/ethenics.jpg" class="img-fluid rounded-circle" />
                             <p>ethnic sets</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/bottom.jpg" class="img-fluid rounded-circle" />
                             <p>bottoms</p>
                         </div>
 
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Kurta.jpg" class="img-fluid rounded-circle" />
                             <p>kurtas</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/Bags.jpg" class="img-fluid rounded-circle" />
                             <p>bags</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
+                            <img src="~/UploadFiles/Common/footware.jpg" class="img-fluid rounded-circle" />
                             <p>footwear</p>
                         </div>
                         <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/sample1.jpg" class="img-fluid img-thumbnail" />
-                            <p>footwear</p>
+                            <img src="~/UploadFiles/Common/Kids.jpg" class="img-fluid rounded-circle" />
+                            <p>Kids</p>
+                        </div>
+
+                        <div class="col-md-1 col-3 text-center">
+                            <img src="~/UploadFiles/Common/Addon.jpg" class="img-fluid rounded-circle" />
+                            <p>add on</p>
                         </div>
 
                     </div>

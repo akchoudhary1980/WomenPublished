@@ -76,16 +76,20 @@
                                 <td>@item.CategoryName</td>
                                 <td>
                                     @{
-                                        var cat = db.MainCategoryModels.Where(x => x.MainCategoryID ==  item.MainCategoryID).SingleOrDefault();
+                                        var cat = db.MainCategoryModels.Where(x => x.MainCategoryID == item.MainCategoryID).SingleOrDefault();
                                     }
 
                                     @cat.CategoryName
-
                                 </td>
 
                                 <td>@item.Remark</td>
-                                <td><a asp-action="Edit" asp-route-id="@item.SubCategoryID" class="btn btn-success btn-mini btn-outline-primary"><i class="icofont icofont-ui-edit"></i></a></td>
-                                <td><a asp-action="Delete" asp-route-id="@item.SubCategoryID" class="btn btn-danger btn-mini btn-outline-primary"><i class="icofont icofont-ui-close"></i></a></td>
+
+                                <td>
+                                    <a href="@Url.Action("Edit", "SubCategory",new { id = item.SubCategoryID })" class="btn btn-success btn-mini btn-outline-primary"><i class='icofont icofont-ui-edit'></i></a>
+                                </td>
+                                <td>
+                                    <a href="@Url.Action("Delete", "SubCategory",new { id = item.SubCategoryID })" class="btn btn-danger btn-mini btn-outline-primary"><i class='icofont icofont-ui-close '></i></a>
+                                </td>                                
                             </tr>
                             }
                         </tbody>

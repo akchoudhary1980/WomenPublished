@@ -8,7 +8,17 @@
     --magenta: #CD118A;
 }
 
-
+.icons-bar {
+    background-color: #BCD000;
+    color: white;
+    padding-top: 20px;
+    font-size: 11px
+}
+icons-bar p{
+    margin-top:15px;
+    color:white!important;
+    text-align:center;
+}
 /* blue Left Side */
 .left-content {
     background-color: #2BBCFB;
