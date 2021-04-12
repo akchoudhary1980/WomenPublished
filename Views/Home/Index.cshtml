@@ -1,16 +1,20 @@
-﻿@{
+﻿@using System.Data
+@model System.Data.DataTable
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Wom.Models.dbContext db = new Wom.Models.dbContext();
-    var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
-    var category = db.CategoryModels.Take(6).ToList();
-    var testimonial = db.TestimonialModels.ToList();
+    var maincategory = db.MainCategoryModels.Take(12).ToList();
+    string indicator = "active";
+    string mcindicator = "active";
+    int indicatorcount = 0;
 }
-@model System.Data.DataTable
-@using System.Data;
+
 <link href="~/css/product-slider.css" rel="stylesheet" />
+
 <!--for Search Category Wise-->
 <script type="text/javascript">
-        function seachcategory(id) {
+    function seachcategory(id) {
             // call Ajax Method
             $.ajax({
                 type: 'POST',
@@ -42,218 +46,40 @@
                 <!--/.Controls-->
                 <!-- Indicators -->
                 <ol class="carousel-indicators" style="margin-top:20px;">
-                    <li data-target="#carousel-example-multi" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="1"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="2"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="3"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="4"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="5"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="6"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="7"></li>
-                    <li data-target="#carousel-example-multi" data-slide-to="8"></li>
+                    @foreach (var mc in maincategory)
+                    {
+                        <li data-target="#carousel-example-multi" data-slide-to="@indicatorcount" class="@indicator"></li>
+                        indicatorcount = indicatorcount + 1;
+                        indicator = "";
+                    }
+
                 </ol>
                 <!--/.Indicators-->
-
                 <div class="carousel-inner" role="listbox">
-
-                    <div class="carousel-item active mx-auto">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
+                    @foreach (var mc1 in maincategory)
+                    {
+                        <div class="carousel-item @mcindicator mx-auto">
+                            <div class="col-12 col-md-4 col-lg-2 mx-auto">
+                                <div class="card mb-2 rounded-0">
+                                    <div class="card-body p-3">
+                                        <a onclick="seachcategory(@mc1.MainCategoryID)" style="cursor:pointer">
+                                            <img src="~/UploadFiles/@mc1.Picture" class="img-fluid" />
+                                            <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">@mc1.CategoryName</h5>
+                                            <p class="aqua-sky-text mb-0">@mc1.Remark</p>
+                                            <ul class="list-unstyled list-inline my-2">
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
+                                                <li class="list-inline-item mx-0"><i class="fas fa-star-half-alt mimosa-text"></i></li>
+                                            </ul>
                                         </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/Tops.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Tops</h5>
-                                    <p class="aqua-sky-text mb-0">Plan B</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star-half-alt mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">9,99 $</p>*@
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/Dress.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Dress</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/ethenics.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Ethenics Dress</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/Saree.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Saree</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/Kurta.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Kurta</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/suit.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Suit</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/winter.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Winter</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-md-4 col-lg-2 mx-auto">
-                            <div class="card mb-2 rounded-0">
-                                @*<div class="view overlay">
-                                        <a href="#!">
-                                            <div class="mask rgba-white-slight"></div>
-                                        </a>
-                                    </div>*@
-                                <div class="card-body p-3">
-                                    <img src="~/UploadFiles/Common/Kids.jpg" class="img-fluid" />
-                                    <h5 class="card-title font-weight-bold fuchsia-rose-text mb-0">Kids</h5>
-                                    <p class="aqua-sky-text mb-0">Pixies</p>
-                                    <ul class="list-unstyled list-inline my-2">
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="fas fa-star mimosa-text"></i></li>
-                                        <li class="list-inline-item mx-0"><i class="far fa-star mimosa-text"></i></li>
-                                    </ul>
-                                    @*<p class="chili-pepper-text mb-0">14,99 $</p>*@
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-
+                        mcindicator = "";}
                 </div>
-
             </div>
 
         </section>

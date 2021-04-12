@@ -19,10 +19,12 @@
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+
+
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/popper.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <!-- Font Awesome JS -->
@@ -82,29 +84,29 @@
             <div class="sidebar-header">
                 <h5><i class="icofont-ui-clip-board"></i> Category</h5>
             </div>
-            <ul class="list-unstyled components">              
+            <ul class="list-unstyled components">
                 @foreach (var mc in maincategory)
                 {
-                <li class="@act">
-                    <a href="#@mc.CategoryName" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
-                    
-                    <ul class="collapse list-unstyled" id="@mc.CategoryName">
-                        @{
-                            var subcategory = db.SubCategoryModels.Where(s => s.MainCategoryID == mc.MainCategoryID).OrderBy(x => x.CategoryName).ToList();
-                        }
-                        @foreach (var sc in subcategory)
-                        {
-                            <li>
-                                <a href="#"><i class="icofont-simple-right"></i> @sc.CategoryName</a>
-                            </li>
-                        }                           
-                    </ul>
+                    <li class="@act">
+                        <a href="#@mc.CategoryName" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
 
-                </li>
+                        <ul class="collapse list-unstyled" id="@mc.CategoryName">
+                            @{
+                                var subcategory = db.SubCategoryModels.Where(s => s.MainCategoryID == mc.MainCategoryID).OrderBy(x => x.CategoryName).ToList();
+                            }
+                            @foreach (var sc in subcategory)
+                            {
+                                <li>
+                                    <a href="#"><i class="icofont-simple-right"></i> @sc.CategoryName</a>
+                                </li>
+                            }
+                        </ul>
+
+                    </li>
 
                     act = "";
-                }               
-            </ul>           
+                }
+            </ul>
         </nav>
         <!-- Page Content  -->
         <div id="content">
@@ -115,7 +117,7 @@
                 <div class="container">
                     <div class="row ">
                         <div class="col-md-4 mb-2 logo-area">
-                            <img src="~/UploadFiles/Common/Women_World_Logo.png" />                         
+                            <img src="~/UploadFiles/Common/Women_World_Logo.png" />
                         </div>
                         <div class="col-md-5 pt-5">
                             <div class="row">
@@ -162,7 +164,7 @@
                                     <li><a href="#">SHOP</a> </li>
                                     <li><a href="#">BEAUTY</a></li>
                                     <li><a href="#">ABOUT US</a></li>
-                                    <li><a href="#">CONTACT US</a></li>
+                                    <li><a href="@Url.Action("Contact", "Home")">CONTACT US</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -245,6 +247,8 @@
                                         1229, Ukhari Road, Jabalpur(MP)-482002
                                     </p>
                                 </div>
+                            </div>
+                            <div class="col-md-4 mt-4 mb-4">
                                 <div class="col-md-12 green-underline">
                                     <h5>FACTORY</h5>
                                     <p>
@@ -252,6 +256,8 @@
                                         13/41, Industrial Area, Richhai, Jabalpur(MP)
                                     </p>
                                 </div>
+                            </div>
+                            <div class="col-md-4 mt-4 mb-4">
                                 <div class="col-md-12 green-underline">
                                     <h5>CONTACT</h5>
                                     <p>
@@ -260,50 +266,50 @@
                                         Email: womenworld@gmail.com
                                     </p>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="row mt-4 mb-4">
-                                    <div class="col-md-12 green-underline">
-                                        <h5>WRIGHT US</h5>
-                                    </div>
-                                    <div>
+                            </div>                            
+                            @*<div class="col-md-8">
+            <div class="row mt-4 mb-4">
+                <div class="col-md-12 green-underline">
+                    <h5>WRIGHT US</h5>
+                </div>
+                <div>
 
-                                        @using (Html.BeginForm("Query", "Home", FormMethod.Post, new { id = "queryform", name = "queryform" }))
-                                        {
-                                            <div class="form-group row mb-2">
-                                                <div class="col-sm-12">
-                                                    <input id="customername" name="customername" type="text" class="form-control rounded-0" placeholder="Your Name">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-2">
-                                                <div class="col-sm-12">
-                                                    <textarea id="address" name="address" placeholder="Your Address" rows="1" class="form-control rounded-0"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-2">
-                                                <div class="col-sm-6 mb-2">
-                                                    <input id="mobile" name="mobile" type="text" class="form-control rounded-0" placeholder="Mobile">
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <input id="email" name="email" type="text" class="form-control rounded-0" placeholder="Email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mb-2">
-                                                <div class="col-sm-12">
-                                                    <textarea id="query" name="query" placeholder="Your Query" rows="1" class="form-control rounded-0"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12 text-end">
-                                                    <input type="submit" value="Submit Now" class="more-product rounded-0" />
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
+                    @using (Html.BeginForm("Query", "Home", FormMethod.Post, new { id = "queryform", name = "queryform" }))
+                    {
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <input id="customername" name="customername" type="text" class="form-control rounded-0" placeholder="Your Name">
                             </div>
                         </div>
-                    </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <textarea id="address" name="address" placeholder="Your Address" rows="1" class="form-control rounded-0"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-6 mb-2">
+                                <input id="mobile" name="mobile" type="text" class="form-control rounded-0" placeholder="Mobile">
+                            </div>
+                            <div class="col-sm-6">
+                                <input id="email" name="email" type="text" class="form-control rounded-0" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-2">
+                            <div class="col-sm-12">
+                                <textarea id="query" name="query" placeholder="Your Query" rows="1" class="form-control rounded-0"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12 text-end">
+                                <input type="submit" value="Submit Now" class="more-product rounded-0" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>*@
+                        </div>
+                        </div>
                 </section>
                 <section>
                     <div class="container">
@@ -319,10 +325,10 @@
                             <div class="col-md-4">
 
                                 <ul class="footer-list">
-                                    <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Health Tips </a></li>
+                                    @*<li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Health Tips </a></li>
                                     <li> <a href="@Url.Action("HealthCard", "Home")" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Health Cards </a></li>
                                     <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> Investors </a></li>
-                                    <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> News and Events </a></li>
+                                    <li> <a href="#" class="footer-list-item"><i class="icofont-circled-right orange-bg"></i> News and Events </a></li>*@
                                 </ul>
 
 
@@ -382,7 +388,10 @@
     </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
+
+    
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
