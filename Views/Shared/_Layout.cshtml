@@ -70,6 +70,22 @@
             }
         }
     </script>
+
+    <!--for Search Category Wise-->
+    <script type="text/javascript">
+    function seachcategory(id) {
+            // call Ajax Method
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SeachProductByCategory")',
+                dataType: 'json',
+                data: {CatID:id},
+                success: function (data) {
+                window.location.href = "@Url.Action("Shopping", "Home")";
+                }
+            });
+        }
+    </script>
 </head>
 <body onload="myFunction()" style="margin:0;">
     <!-- For Loader -->
@@ -175,58 +191,15 @@
             <section class="mt-3 icons-bar">
                 <div class="container">
                     <div class="row text-uppercase">
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Kurta.jpg" class="img-fluid rounded-circle" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Tops.jpg" class="img-fluid rounded-circle" />
-                            <p>tops</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Dress.jpg" class="img-fluid rounded-circle" />
-                            <p>dresses</p>
-                        </div>
-
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Saree.jpg" class="img-fluid rounded-circle" />
-                            <p>sarees</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/suit.jpg" class="img-fluid rounded-circle" />
-                            <p>Suits</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/ethenics.jpg" class="img-fluid rounded-circle" />
-                            <p>ethnic sets</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/bottom.jpg" class="img-fluid rounded-circle" />
-                            <p>bottoms</p>
-                        </div>
-
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Kurta.jpg" class="img-fluid rounded-circle" />
-                            <p>kurtas</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Bags.jpg" class="img-fluid rounded-circle" />
-                            <p>bags</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/footware.jpg" class="img-fluid rounded-circle" />
-                            <p>footwear</p>
-                        </div>
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Kids.jpg" class="img-fluid rounded-circle" />
-                            <p>Kids</p>
-                        </div>
-
-                        <div class="col-md-1 col-3 text-center">
-                            <img src="~/UploadFiles/Common/Addon.jpg" class="img-fluid rounded-circle" />
-                            <p>add on</p>
-                        </div>
-
+                        @foreach (var mc2 in maincategory)
+                        {
+                            <div class="col-md-1 col-3 text-center">
+                                <a onclick="seachcategory(@mc2.MainCategoryID)" style="cursor:pointer">
+                                    <img src="~/UploadFiles/@mc2.Picture" class="img-fluid rounded-circle" />
+                                    <p>@mc2.CategoryName</p>
+                                </a>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
@@ -391,7 +364,7 @@
     @*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>*@
 
     
-    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    @*<script src="~/Scripts/jquery-3.3.1.js"></script>*@
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->

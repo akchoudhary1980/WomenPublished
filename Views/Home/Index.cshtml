@@ -4,7 +4,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Wom.Models.dbContext db = new Wom.Models.dbContext();
-    var maincategory = db.MainCategoryModels.Take(12).ToList();
+    var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x=>x.MainCategoryID).ToList();
     string indicator = "active";
     string mcindicator = "active";
     int indicatorcount = 0;
@@ -12,21 +12,7 @@
 
 <link href="~/css/product-slider.css" rel="stylesheet" />
 
-<!--for Search Category Wise-->
-<script type="text/javascript">
-    function seachcategory(id) {
-            // call Ajax Method
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("SeachProductByCategory")',
-                dataType: 'json',
-                data: {CatID:id},
-                success: function (data) {
-                window.location.href = "@Url.Action("Shopping", "Home")";
-                }
-            });
-        }
-</script>
+
 <!-- Category Section -->
 <section>
     <div class="container my-4" style="padding-bottom:40px;">
