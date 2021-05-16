@@ -176,9 +176,9 @@
                             <div class="collapse navbar-collapse mainnav mt-2" id="navbarSupportedContent">
                                 <ul class="navbar-nav ms-auto mb-4 mb-sm-2 mb-lg-0">
                                     <li><a href="@Url.Action("Index", "Home")">HOME</a></li>
-                                    <li><a href="#">HOT</a></li>
-                                    <li><a href="#">SHOP</a> </li>
-                                    <li><a href="#">BEAUTY</a></li>
+                                    @*<li><a href="#">HOT</a></li>
+                                    <li><a href="#">SHOP</a> </li>*@
+                                    <li><a href="#">BEAUTY PARLOUR</a></li>
                                     <li><a href="#">ABOUT US</a></li>
                                     <li><a href="@Url.Action("Contact", "Home")">CONTACT US</a></li>
                                 </ul>
@@ -195,7 +195,7 @@
                         {
                             <div class="col-md-1 col-3 text-center">
                                 <a onclick="seachcategory(@mc2.MainCategoryID)" style="cursor:pointer">
-                                    <img src="~/UploadFiles/@mc2.Picture" class="img-fluid rounded-circle" />
+                                    <img src="~/UploadFiles/@mc2.Picture" class="img-fluid rounded-circle" style="border: 1px solid #CD118A;" />
                                     <p>@mc2.CategoryName</p>
                                 </a>
                             </div>
@@ -358,7 +358,7 @@
     <!-- Render Body End -->
     <!-- For Sticky Social Icon -->
     <div class="sticky-icon-bar">
-        <a href="https://api.whatsapp.com/send?phone=917401307307&text=Start%20Whatsapp%20Chating" target="_blank" class="whatsup-bg"><i class="icofont-whatsapp"></i></a>
+        <a href="https://api.whatsapp.com/send?phone=919302050528&text=Start%20Whatsapp%20Chating" target="_blank" class="whatsup-bg"><i class="icofont-whatsapp"></i></a>
         @*<a href="#" class="twitter"><i class="fa fa-twitter"></i></a>*@
     </div>
 
