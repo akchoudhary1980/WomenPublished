@@ -10,13 +10,13 @@
 
 .icons-bar {
     background-color: #BCD000;
-    color: white;
+    color: black;
     padding-top: 20px;
     font-size: 11px
 }
 icons-bar p{
     margin-top:15px;
-    color:white!important;
+    color:black!important;
     text-align:center;
 }
 /* blue Left Side */

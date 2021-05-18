@@ -4,14 +4,52 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     Wom.Models.dbContext db = new Wom.Models.dbContext();
-    var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x=>x.MainCategoryID).ToList();
+    var maincategory = db.MainCategoryModels.Take(12).OrderByDescending(x => x.MainCategoryID).ToList();
+
+    var slider = db.SliderModels.Where(x => x.IsDisplay == true).ToList();
+    int i = 0; int j = 0; string act = "";
+
     string indicator = "active";
     string mcindicator = "active";
     int indicatorcount = 0;
 }
 
 <link href="~/css/product-slider.css" rel="stylesheet" />
+<!-- Slider Section -->
+<section id="sliderbar">
+    <!-- Slider -->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @foreach (var item in slider)
+            {
+                if (i == 0) { act = "active"; } else { act = ""; }
+                <li data-target="#carouselExampleInterval" data-slide-to="@i" class="@act"></li>
+                i++;
+            }
+        </ol>
 
+        <div class="carousel-inner">
+            @foreach (var item1 in slider)
+            {
+                if (j == 0) { act = "active"; } else { act = ""; }
+                <div class="carousel-item @act" data-bs-interval="2000">
+                    <a href="@item1.Link"><img class="d-block img-fluid w-100" src="~/UploadFiles/@item1.Picture" alt="slide @j"></a>
+                </div>
+                j++;
+            }
+        </div>
+
+        <button class="carousel-control-prev my-auto" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next my-auto" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</section>
 
 <!-- Category Section -->
 <section>
@@ -64,7 +102,8 @@
                                 </div>
                             </div>
                         </div>
-                        mcindicator = "";}
+                        mcindicator = "";
+                    }
                 </div>
             </div>
 
