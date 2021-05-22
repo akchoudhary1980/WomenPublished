@@ -2,27 +2,44 @@
 @{
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
-
+<!--for Load Data-->
+<script type="text/javascript">
+    // define here call here
+    function LoadTransData() {
+        var productid = $('#ProductHiddenID').val();
+        alert(productid);
+        // aign here
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("LoadTransData")',
+            dataType: 'json',
+            data: { productID: productid},
+            success: function (data) {
+                DisplayData(data);                
+            }
+        });
+    }
+</script>
 <!--for Product Auto Complete-->
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#Customer").autocomplete({
+        $("#Product").autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: "/Share/CustomerNameAutoComplete",
+                    url: "/Share/ProductNameAutoComplete",
                     type: "POST",
                     dataType: "json",
                     data: { Prefix: request.term },
                     success: function (data) {
                         response($.map(data, function (item) {
-                            return { label: item.CustomerName, value: item.CustomerName, id: item.CustomerID };
+                            return { label: item.ProductName, value: item.ProductName, id: item.ProductID };
                         }))
                     },
                 })
             },
             select: function (event, ui) {
-                $("#CustomerHiddenID").val(ui.item.id);
-                $("#CustomerName").val(ui.item.value);
+                $("#ProductHiddenID").val(ui.item.id);
+                $("#ProductName").val(ui.item.value);
             }
         });
     })
@@ -61,56 +78,56 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        @using (Html.BeginForm("CustomerLedger", "CustomerPayment", FormMethod.Post))
-                        {
-                            <di class="form-group row">
+                        @*@using (Html.BeginForm("CustomerLedger", "CustomerPayment", FormMethod.Post))
+                        {*@
+                            <div class="form-group row">
                                 @Html.Label("", "Product Name", new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    @Html.TextBox("Customer", "", new { @class = "form-control" })
-                                    @Html.Hidden("CustomerHiddenID", "0")
+                                    @Html.TextBox("Product", "", new { @class = "form-control" })
+                                    @Html.Hidden("ProductHiddenID", "0")
                                 </div>
 
-                            </di>
+                            </div>
                             <di class="form-group row">
                                 @Html.Label("", "Selected Product", new { @class = "control-label col-md-2" })
                                 <div class="col-md-9">
-                                    @Html.TextBox("CustomerName", "", new { @class = "form-control", @readonly = "readonly" })
+                                    @Html.TextBox("ProductName", "", new { @class = "form-control", @readonly = "readonly" })
                                 </div>
                                 <div class="col-md-1">
-                                    <button class="btn btn-primary btn-outline-primary float-right" type="submit"><i class="icofont icofont-search"></i></button>
+                                    <button class="btn btn-primary btn-outline-primary float-right" type="button" onclick="LoadTransData();"><i class="icofont icofont-search"></i></button>
                                 </div>
                             </di>
-                        }
+                        @*}*@
                     </div>
                 </div>
             </div>
             <div class="card-block">
                 <div class="row">
-                    <div class="col-sm-3">      
+                    <div class="col-sm-3">
                         <label class=" form-control-label">Size</label>
-                            @Html.DropDownListFor(model => model.SizeID,
-                             Wom.Controllers.ProductPackingController.GetSizeList(), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.SizeID, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(model => model.SizeID,
+                         Wom.Controllers.ProductPackingController.GetSizeList(), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SizeID, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-3">   
+                    <div class="col-sm-3">
                         <label class=" form-control-label">Color</label>
-                            @Html.DropDownListFor(model => model.ColorID,
-                             Wom.Controllers.ProductPackingController.GetColorList(), new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.ColorID, "", new { @class = "text-danger" })                       
+                        @Html.DropDownListFor(model => model.ColorID,
+                         Wom.Controllers.ProductPackingController.GetColorList(), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ColorID, "", new { @class = "text-danger" })
                     </div>
-                   
+
                     <div class="col-sm-2">
                         <label class=" form-control-label">Rate</label>
                         @Html.EditorFor(model => model.Rate, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Rate, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-sm-2">
+                    @*<div class="col-sm-2">
                         <label class=" form-control-label">Is GST</label>
                         <div class="checkbox">
                             <label>@Html.CheckBoxFor(model => model.GSTInclusive)&nbsp;Yes</label>
                         </div>
                         @Html.ValidationMessageFor(model => model.GSTInclusive, "", new { @class = "text-danger" })
-                    </div>
+                    </div>*@
                     <div class="col-sm-1">
                         <label class="form-control-label">Stock</label>
                         @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
