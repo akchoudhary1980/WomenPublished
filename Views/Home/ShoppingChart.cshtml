@@ -26,130 +26,134 @@
             });
     }
 </script>
-<section class="mt-5">
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Shopping cart</h5>
-                </div>
-                <div class="card-block">
-                    <div class="row">
-                        <div class="col-sm-6 col-8">
-                            <h4> Your Shopping Cart </h4>
-                        </div>
-                        <div class="col-sm-6 col-4">
-                            <a href="@Url.Action("Shopping", "Home")" class="btn btn-success float-right">Add More Product</a>
-                        </div>
+<section class="mt-4 mb-3">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Shopping cart</h5>
                     </div>
+                    <div class="card-block">
+                        <div class="row">
+                            <div class="col-sm-6 col-8">
+                                <h4> Your Shopping Cart </h4>
+                            </div>
+                            <div class="col-sm-6 col-4">
+                                <a href="@Url.Action("Shopping", "Home")" class="btn btn-success float-end m-1">Add More Product</a>
+                            </div>
+                        </div>
 
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <div class="table-border-style">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Image</th>
-                                                <th width="400px" align="left" class="text-left">Product Name</th>
-                                                <th>Qty</th>
-                                                <th class="text-right">Rate</th>
-                                                <th class="text-right">Amount</th>
-                                                <th>Update</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach (var item in Model)
-                                            {
-                                                <tr class="odd">
-                                                    <td class="pro-list-img" tabindex="0">
-                                                        <img src="~/UploadFiles/@item.ItemPicture" class="img-fluid" width="125" alt="tbl">
-                                                    </td>
-                                                    <td>
-                                                        @item.ItemName
-                                                        <br>Delivery Charge : @item.DeliveryCharge
-                                                    </td>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <div class="table-border-style">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th width="400px" align="left" class="text-left">Product Name</th>
+                                                    <th>Qty</th>
+                                                    <th class="text-right">Rate</th>
+                                                    <th class="text-right">Amount</th>
+                                                    <th>Update</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr class="odd">
+                                                        <td class="pro-list-img" tabindex="0">
+                                                            <img src="~/UploadFiles/@item.ItemPicture" class="img-fluid" width="125" alt="tbl">
+                                                        </td>
+                                                        <td>
+                                                            @item.ItemName
+                                                            <br>Delivery Charge : @item.DeliveryCharge
+                                                        </td>
 
-                                                    <td style="width:30px">
-                                                        <input type="number" id="text@(item.SerNo)" class="form-control" style="min-width:60px" value="@item.Quantity">
+                                                        <td style="width:30px">
+                                                            <input type="number" id="text@(item.SerNo)" class="form-control" style="min-width:60px" value="@item.Quantity">
 
-                                                    </td>
-                                                    <td class="text-right">
-                                                        @item.Rate
-                                                    </td>
-                                                    <td class="text-right">@item.Amount</td>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            @item.Rate
+                                                        </td>
+                                                        <td class="text-right">@item.Amount</td>
 
-                                                    <td class="action-icon text-center">
-                                                        <button type="button" id="@item.SerNo" onclick="updateShopItems(this.id)" class="text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update"><i class="icofont icofont-refresh"></i></button>
-                                                    </td>
-                                                    <td class="action-icon text-center">
-                                                        <a href="@Url.Action("RemovSTransData", "Home",new { id = item.SerNo })" class="text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="icofont icofont-delete-alt"></i></a>
-                                                    </td>
+                                                        <td class="action-icon text-center">
+                                                            <button type="button" id="@item.SerNo" onclick="updateShopItems(this.id)" class="text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Update"><i class="icofont icofont-refresh"></i></button>
+                                                        </td>
+                                                        <td class="action-icon text-center">
+                                                            <a href="@Url.Action("RemovSTransData", "Home",new { id = item.SerNo })" class="text-muted" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><i class="icofont icofont-delete-alt"></i></a>
+                                                        </td>
+                                                    </tr>
+
+                                                    TotalAmount = Wom.TextLib.RemoveIndianCulture(item.TotalAmount);
+                                                    TotalGST = Wom.TextLib.RemoveIndianCulture(item.GSTAmount);
+                                                    SubTotal = TotalAmount + TotalGST;
+                                                    TotalDelivery = Wom.TextLib.RemoveIndianCulture(item.DeliveryTotal);
+                                                    GrandTotal = Wom.TextLib.RemoveIndianCulture(item.GrandTotal);
+                                                }
+                                                <tr class="even">
+                                                    <td colspan="4" class="text-right">Total</td>
+                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(TotalAmount)</b></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr class="even">
+                                                    <td colspan="4" class="text-right">GST / IGST</td>
+                                                    <td class="text-right">@Wom.TextLib.IndianRuppes(TotalGST)</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr class="even">
+                                                    <td colspan="4" class="text-right"><b>Sub Total</b></td>
+                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
 
-                                                TotalAmount = Wom.TextLib.RemoveIndianCulture(item.TotalAmount);
-                                                TotalGST = Wom.TextLib.RemoveIndianCulture(item.GSTAmount);
-                                                SubTotal = TotalAmount + TotalGST;
-                                                TotalDelivery = Wom.TextLib.RemoveIndianCulture(item.DeliveryTotal);
-                                                GrandTotal = Wom.TextLib.RemoveIndianCulture(item.GrandTotal);
-                                            }
-                                            <tr class="even">
-                                                <td colspan="4" class="text-right">Total</td>
-                                                <td class="text-right"><b>@Wom.TextLib.IndianRuppes(TotalAmount)</b></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr class="even">
-                                                <td colspan="4" class="text-right">GST / IGST</td>
-                                                <td class="text-right">@Wom.TextLib.IndianRuppes(TotalGST)</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                             <tr class="even">
-                                                <td colspan="4" class="text-right"><b>Sub Total</b></td>
-                                                <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                                @if (SubTotal < 1000)
+                                                {
+                                                    <tr class="green-colors">
+                                                        <td colspan="4" class="text-right"><b>Delivery Charge </b></td>
+                                                        <td class="text-right"><b>@Wom.TextLib.IndianRuppes(99)</b></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
 
-                                            @if (SubTotal < 1000)
-                                            {
-                                                <tr class="green-colors">
-                                                    <td colspan="4" class="text-right"><b>Delivery Charge </b></td>
-                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(99)</b></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>     
-                                                GrandTotal = GrandTotal + 99;
-                                            }
-                                            else
-                                            {
-                                                <tr class="green-colors">
-                                                    <td colspan="4" class="text-right"><b>Free Delivery</b></td>
-                                                    <td class="text-right"><b>(-) @Wom.TextLib.IndianRuppes(TotalDelivery)</b></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>                                               
-                                            }
-                                            <tr class="odd">
-                                                <td colspan="4" class="text-right"><b>Grand Total</b></td>
-                                                <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                                    GrandTotal = GrandTotal + 99;
+                                                }
+                                                else
+                                                {
+                                                    <tr class="green-colors">
+                                                        <td colspan="4" class="text-right"><b>Free Delivery</b></td>
+                                                        <td class="text-right"><b>(-) @Wom.TextLib.IndianRuppes(TotalDelivery)</b></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
 
-                                        </tbody>
-                                    </table>
+                                                }
+                                                <tr class="odd">
+                                                    <td colspan="4" class="text-right"><b>Grand Total</b></td>
+                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="pb-3">
+                                    <a href="@Url.Action("SignInCheckout", "Login")" class="btn btn-primary btn-out float-end m-1">Checkout</a>
                                 </div>
                             </div>
-                            <div class="pb-3">
-                                <a href="@Url.Action("SignInCheckout", "Login")" class="btn btn-primary btn-out float-right">Checkout</a>
-                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
