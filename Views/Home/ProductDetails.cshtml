@@ -1,6 +1,8 @@
 ﻿@model Wom.Models.ProductModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    Wom.Models.dbContext db = new Wom.Models.dbContext();
+    string act = "checked";
 }
 
 <!-- slick css -->
@@ -18,7 +20,7 @@
     function addShopItems(id) {
         var itemid, qty;
         itemid = id;
-        qty = 1;
+        qty = 1; // get qty 
         // call Ajax Method
         $.ajax({
             type: 'POST',
@@ -128,7 +130,7 @@
                     <span class="text-primary product-price">@Wom.TextLib.IndianRuppes(Model.Rate)</span> <span class="done-task txt-muted">@Wom.TextLib.IndianRuppes(Model.MRP)</span>
                     <br />
                     Delivery Charge : @Wom.TextLib.IndianRuppes(Model.DeliveryCharge)
-                    <p style="color:green; font-weight:800">Free delivery service for orders over ₹1,000.(delivery in 8-10 working days).</p>
+                    @*<p style="color:green; font-weight:800">Free delivery service for orders over ₹1,000.(delivery in 8-10 working days).</p>*@
                     <hr>
                     <div>
                         @Html.Raw(@Model.FullDescription)
@@ -153,42 +155,41 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="col-xl-12 col-sm-12 mb-3">
-                    <h6 class="f-16 f-w-600 m-t-10 m-b-10">Size</h6>
-                    <div class="form-check-inline">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio">S
-                        </label>
+                @{
+                    var packing = db.ProductPackingModels.Where(x => x.ProductID == Model.ProductID).ToList();
+                }
+                @if (packing.Count > 0)
+                {
+            <div class="col-xl-12 col-sm-12 mb-3">
+                <h6 class="f-16 f-w-600 m-t-10 m-b-10">Size</h6>
+
+                @{ foreach (Wom.Models.ProductPackingModel pc in packing)
+                    {
+                        string size = db.SizeModels.Where(x => x.SizeID == pc.SizeID).Select(y => y.SizeName).SingleOrDefault();
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" class="form-check-input" checked="@act" name="optradio">@size
+                            </label>
+                        </div>
+                        act = "";
+                    }
+                }
+
+            </div>
+                    <div class="col-xl-12 col-sm-12 mb-3">
+                        <h6 class="f-16 f-w-600 m-t-10 m-b-10">Color</h6>
+                        <select class="form-control" id="sel1" name="sellist1">
+
+                            @{ foreach (Wom.Models.ProductPackingModel pc in packing)
+                                {
+                                    string color = db.ColorModels.Where(x => x.ColorID == pc.ColorID).Select(y => y.ColorName).SingleOrDefault();
+                                    <option>@color</option>                                    
+                                  }
+                                }
+                          </select>
                     </div>
-                    <div class="form-check-inline" style="border:solid 1px grey;padding-top:5px; padding-bottom:5px;padding-left:10px;padding-right:10px;">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio">M
-                        </label>
-                    </div>
-                    <div class="form-check-inline disabled">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio">L
-                        </label>
-                    </div>
-                    <div class="form-check-inline disabled">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio">XL
-                        </label>
-                    </div>
-                    <div class="form-check-inline disabled">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optradio">XX
-                        </label>
-                    </div>
-                </div>
-                <div class="col-xl-12 col-sm-12 mb-3">
-                    <h6 class="f-16 f-w-600 m-t-10 m-b-10">Color</h6>
-                    <select class="form-control" id="sel1" name="sellist1">
-                        <option>Red</option>
-                        <option>Green</option>
-                        <option>White</option>
-                    </select>                    
-                </div>*@
+                }
+
 
 
                 <div class="col-lg-12 col-sm-12 mob-product-btn">

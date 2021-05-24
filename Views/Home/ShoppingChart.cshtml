@@ -90,11 +90,15 @@
                                                         </td>
                                                     </tr>
 
-                                                    TotalAmount = Wom.TextLib.RemoveIndianCulture(item.TotalAmount);
-                                                    TotalGST = Wom.TextLib.RemoveIndianCulture(item.GSTAmount);
+                                                    TotalAmount = TotalAmount + Wom.TextLib.RemoveIndianCulture(item.Amount);
+                                                    TotalGST = TotalGST + Wom.TextLib.RemoveIndianCulture(item.GSTAmount);                                                    
+                                                    TotalDelivery = TotalDelivery + Wom.TextLib.RemoveIndianCulture(item.DeliveryTotal);
+                                                    
+                                                }
+
+                                                @{ 
                                                     SubTotal = TotalAmount + TotalGST;
-                                                    TotalDelivery = Wom.TextLib.RemoveIndianCulture(item.DeliveryTotal);
-                                                    GrandTotal = Wom.TextLib.RemoveIndianCulture(item.GrandTotal);
+                                                    GrandTotal = SubTotal + TotalDelivery;
                                                 }
                                                 <tr class="even">
                                                     <td colspan="4" class="text-right">Total</td>
@@ -110,12 +114,12 @@
                                                 </tr>
                                                 <tr class="even">
                                                     <td colspan="4" class="text-right"><b>Sub Total</b></td>
-                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
+                                                    <td class="text-right"><b>@Wom.TextLib.IndianRuppes(SubTotal)</b></td>
                                                     <td></td>
                                                     <td></td>
                                                 </tr>
 
-                                                @if (SubTotal < 1000)
+                                                @*@if (SubTotal < 1000)
                                                 {
                                                     <tr class="green-colors">
                                                         <td colspan="4" class="text-right"><b>Delivery Charge </b></td>
@@ -127,15 +131,16 @@
                                                     GrandTotal = GrandTotal + 99;
                                                 }
                                                 else
-                                                {
+                                                {*@
                                                     <tr class="green-colors">
                                                         <td colspan="4" class="text-right"><b>Free Delivery</b></td>
-                                                        <td class="text-right"><b>(-) @Wom.TextLib.IndianRuppes(TotalDelivery)</b></td>
+                                                        <td class="text-right"><b>@Wom.TextLib.IndianRuppes(TotalDelivery)</b></td>
                                                         <td></td>
                                                         <td></td>
                                                     </tr>
 
-                                                }
+                                                @*}*@
+
                                                 <tr class="odd">
                                                     <td colspan="4" class="text-right"><b>Grand Total</b></td>
                                                     <td class="text-right"><b>@Wom.TextLib.IndianRuppes(GrandTotal)</b></td>
