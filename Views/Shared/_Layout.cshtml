@@ -86,6 +86,23 @@
             });
         }
     </script>
+    <!--for Search SubCategory Wise-->
+    <script type="text/javascript">
+    function seachsubcategory(id) {
+            // call Ajax Method
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SeachProductBySubCategory")',
+                dataType: 'json',
+                data: {CatID:id},
+                success: function (data) {
+                window.location.href = "@Url.Action("Shopping", "Home")";
+                }
+            });
+        }
+    </script>
+
+
 </head>
 <body onload="myFunction()" style="margin:0;">
     <!-- For Loader -->
@@ -104,7 +121,7 @@
                 @foreach (var mc in maincategory)
                 {
                     <li class="@act">
-                        <a href="#@mc.CategoryName" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
+                        <a onclick="seachcategory(@mc.MainCategoryID)" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
 
                         <ul class="collapse list-unstyled" id="@mc.CategoryName">
                             @{
@@ -113,7 +130,7 @@
                             @foreach (var sc in subcategory)
                             {
                                 <li>
-                                    <a href="#"><i class="icofont-simple-right"></i> @sc.CategoryName</a>
+                                    <a onclick="seachsubcategory(@sc.SubCategoryID)" ><i class="icofont-simple-right"></i> @sc.CategoryName</a>
                                 </li>
                             }
                         </ul>
@@ -179,7 +196,7 @@
                                     @*<li><a href="#">HOT</a></li>
                                     <li><a href="#">SHOP</a> </li>*@
                                     @*<li><a href="#">BEAUTY PARLOUR</a></li>*@
-                                    <li><a href="#">ABOUT US</a></li>
+                                    <li><a href="@Url.Action("About", "Home")">ABOUT US</a></li>
                                     <li><a href="@Url.Action("Contact", "Home")">CONTACT US</a></li>
                                 </ul>
                             </div>
