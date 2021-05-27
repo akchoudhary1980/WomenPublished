@@ -25,7 +25,12 @@
 
 <div class="container">
     <!-- Product list start -->
-    <div class="row mt-4 mb-5">
+    <div class="row mt-4">
+        <div class="col-md-12 text-center green-underline">
+            <h4>@ViewData["Title"]</h4>
+        </div>
+    </div>
+    <div class="row mt-4 mb-5">      
         @foreach (var item in Model)
         {
             <div class="col-xl-3 col-md-3 col-sm-6 col-xs-12 mb-3">

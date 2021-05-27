@@ -121,15 +121,17 @@
                 @foreach (var mc in maincategory)
                 {
                     <li class="@act">
-                        <a onclick="seachcategory(@mc.MainCategoryID)" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
+                        <a href="#@(mc.MainCategoryID+"M")" data-toggle="collapse" aria-expanded="false"><i class="icofont-square-right"></i> @mc.CategoryName</a>
 
-                        <ul class="collapse list-unstyled" id="@mc.CategoryName">
+                        <ul class="collapse list-unstyled" id="@(mc.MainCategoryID+"M")">
                             @{
                                 var subcategory = db.SubCategoryModels.Where(s => s.MainCategoryID == mc.MainCategoryID).OrderBy(x => x.CategoryName).ToList();
                             }
+                            <li style="cursor:pointer"><a onclick="seachcategory(@mc.MainCategoryID)">@mc.CategoryName</a></li>
+
                             @foreach (var sc in subcategory)
                             {
-                                <li>
+                                <li style="cursor:pointer">
                                     <a onclick="seachsubcategory(@sc.SubCategoryID)" ><i class="icofont-simple-right"></i> @sc.CategoryName</a>
                                 </li>
                             }
