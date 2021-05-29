@@ -157,6 +157,8 @@
                 </div>
                 @{
                     var packing = db.ProductPackingModels.Where(x => x.ProductID == Model.ProductID).ToList();
+                    List<string> sizelist = new List<string>();
+                    List<string> colorlist = new List<string>();
                 }
                 @if (packing.Count > 0)
                 {
@@ -166,27 +168,46 @@
                 @{ foreach (Wom.Models.ProductPackingModel pc in packing)
                     {
                         string size = db.SizeModels.Where(x => x.SizeID == pc.SizeID).Select(y => y.SizeName).SingleOrDefault();
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="radio" class="form-check-input" checked="@act" name="optradio">@size
-                            </label>
-                        </div>
-                        act = "";
+                        if (sizelist.Contains(size))
+                        {
+
+                        }
+                        else
+                        {
+                            sizelist.Add(size);
+
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" checked="@act" name="optradio">@size
+                                </label>
+                            </div>
+                            act = "";
+                        }
+
                     }
                 }
 
             </div>
                     <div class="col-xl-12 col-sm-12 mb-3">
                         <h6 class="f-16 f-w-600 m-t-10 m-b-10">Color</h6>
-                        <select class="form-control" id="sel1" name="sellist1">
-
+                        <select id="colors" name="colors" class="form-select">
+                            @*<option selected>Select Color</option>*@
                             @{ foreach (Wom.Models.ProductPackingModel pc in packing)
                                 {
-                                    string color = db.ColorModels.Where(x => x.ColorID == pc.ColorID).Select(y => y.ColorName).SingleOrDefault();
-                                    <option>@color</option>                                    
-                                  }
+                                    var color = db.ColorModels.Where(x => x.ColorID == pc.ColorID).SingleOrDefault();
+                                    if (sizelist.Contains(color.ColorName))
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        sizelist.Add(color.ColorName);
+                                        <option value="@color.ColorID">@color.ColorName</option>
+
+                                    }
                                 }
-                          </select>
+                            }
+                        </select>
                     </div>
                 }
 
