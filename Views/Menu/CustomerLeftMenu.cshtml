@@ -1,6 +1,5 @@
 ﻿<script src="~/Scripts/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-    
+<script type="text/javascript">    
         $(document).ready(function(){
             ordercount();
             newordercount()
@@ -41,7 +40,7 @@
 
 <nav class="pcoded-navbar" pcoded-header-position="relative">
     <div class="pcoded-inner-navbar main-menu">
-        <div class="pcoded-navigatio-lavel">Womkanth Pharmacy</div>
+        <div class="pcoded-navigatio-lavel">User Dashboard</div>
         <ul class="pcoded-item pcoded-left-item">
             <li>
                 <a href="@Url.Action("Dashboard", "Customer")">
@@ -56,12 +55,12 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class="">
-                        <a href="@Url.Action("OrderNew", "Order")">
+                        <a href="@Url.Action("OrderList", "Customer")">
                             <span class="pcoded-mtext">Order List </span>
                         </a>
                     </li>
                     <li class="">
-                        <a href="@Url.Action("OrderAll", "Order")">
+                        <a href="@Url.Action("TrackOrder", "Customer")">
                             <span class="pcoded-mtext">Track Order</span>
                         </a>
                     </li>                    
@@ -74,12 +73,12 @@
                 </a>
                 <ul class="pcoded-submenu">
                     <li class="">
-                        <a href="@Url.Action("EnquiryNew", "Enquiry")">
+                        <a href="@Url.Action("Profile", "Customer")">
                             <span class="pcoded-mtext">Update Profile </span>
                         </a>
                     </li>
                     <li class="">
-                        <a href="@Url.Action("EnquiryAll", "Enquiry")">
+                        <a href="@Url.Action("Password", "Customer")">
                             <span class="pcoded-mtext">Change Password</span>
                         </a>
                     </li>
